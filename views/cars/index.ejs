@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+    <h1>Hello FSW1 tercinta!</h1>
+
+    <% if (message !="" ) { %>
+        <div class="alert">Data berhasil <%= message %>
+        </div>
+        <% } %>
+
+            <table>
+                <th>id</th>
+                <th>nama</th>
+                <th>sewa</th>
+                <th>ukuran</th>
+                <th>foto</th>
+                <th>createdAt</th>
+                <th>updateAt</th>
+                <th>action</th>
+                <% cars.map((car)=> { %>
+                    <tr>
+                        <td>
+                            <%= car.id %>
+                        </td>
+                        <td>
+                            <%= car.name %>
+                        </td>
+                        <td>
+                            <%= car.sewa %>
+                        </td>
+                        <td>
+                            <%= car.ukuran %>
+                        </td>
+                        <td>
+                            <%= car.foto %>
+                        </td>
+                        <td>
+                            <%= car.createdAt %>
+                        </td>
+                        <td>
+                            <%= car.updateAt %>
+                        </td>
+                        <td>
+                            <a href="/cars/edit/<%= car.id %>">
+                                <button>Edit</button>
+                            </a>
+                            <form action="/cars/admin/delete/<%= car.id %>" method="POST">
+                                <button>Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </table>
+            <a href="/cars/create">
+                <button>tambah customer baru</button>
+            </a>
+</body>
+
+</html>
