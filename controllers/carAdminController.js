@@ -3,12 +3,11 @@ const {Car} = require("../models");
 const carPage = async (req,res) => {
     try {
         const cars = await Car.findAll()
-
+        console.log(cars)
         res.render("cars/index.ejs", {
             cars,
             message: req.flash("message",""),
-        }); //ngerender halaman ejs dengan ngeprint juga data customersnya
-
+        }); 
     } catch (err) { // render ejs kalo ada issue buat nangkep error
         res.render ("error.ejs",{
             message: err.message,
@@ -37,7 +36,6 @@ const createCar = async (req, res) => {
     }
 
 }
-
 const editCarPage = async (req, res) => {
     try {
         const car = await Car.findByPk(req.params.id);
@@ -53,7 +51,6 @@ const editCarPage = async (req, res) => {
     }
 };
 
-// updaete req body dimana id ngecocokin sama param id
 const editCar = async (req, res) => {
     try {
         await Car.update(req.body, {

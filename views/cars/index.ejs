@@ -1,67 +1,187 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 
 <head>
     <meta charset="UTF-8" />
+    <title>Responsiive Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/car.css" />
+
+    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/style.css" />
 </head>
 
 <body>
-    <h1>Hello FSW1 tercinta!</h1>
-
-    <% if (message !="" ) { %>
-        <div class="alert">Data berhasil <%= message %>
+    <div class="sidebar">
+        <div class="logo-details">
+            <i class="bx bxl-c-plus-plus"></i>
+            <span class="logo_name">CAR</span>
         </div>
-        <% } %>
+        <ul class="nav-links">
+            <li>
+                <a href="#" class="active">
+                    <i class="bx bx-grid-alt"></i>
+                    <span class="links_name">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="bx bx-box"></i>
+                    <span class="links_name">Car Product</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="bx bx-list-ul"></i>
+                    <span class="links_name">Order list</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="bx bx-cog"></i>
+                    <span class="links_name">Setting</span>
+                </a>
+            </li>
+            <li class="log_out">
+                <a href="#">
+                    <i class="bx bx-log-out"></i>
+                    <span class="links_name">Log out</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <section class="home-section">
+        <nav>
+            <div class="sidebar-button">
+                <i class="bx bx-menu sidebarBtn"></i>
+                <span class="dashboard">Dashboard</span>
+            </div>
+            <div class="search-box">
+                <input type="text" placeholder="Search..." />
+                <i class="bx bx-search"></i>
+            </div>
+            <div class="profile-details">
+                <img src="#" alt="" />
+                <span class="admin_name">#</span>
+                <i class="bx bx-chevron-down"></i>
+            </div>
+        </nav>
 
-            <table>
-                <th>id</th>
-                <th>nama</th>
-                <th>sewa</th>
-                <th>ukuran</th>
-                <th>foto</th>
-                <th>createdAt</th>
-                <th>updateAt</th>
-                <th>action</th>
-                <% cars.map((car)=> { %>
-                    <tr>
-                        <td>
-                            <%= car.id %>
-                        </td>
-                        <td>
-                            <%= car.name %>
-                        </td>
-                        <td>
-                            <%= car.sewa %>
-                        </td>
-                        <td>
-                            <%= car.ukuran %>
-                        </td>
-                        <td>
-                            <%= car.foto %>
-                        </td>
-                        <td>
-                            <%= car.createdAt %>
-                        </td>
-                        <td>
-                            <%= car.updateAt %>
-                        </td>
-                        <td>
-                            <a href="/cars/edit/<%= car.id %>">
-                                <button>Edit</button>
-                            </a>
-                            <form action="/cars/admin/delete/<%= car.id %>" method="POST">
-                                <button>Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                    <% }) %>
-            </table>
-            <a href="/cars/create">
-                <button>tambah customer baru</button>
-            </a>
+        <div class="home-content">
+                <div class="recent-sales box">
+                    <div class="title">CRUD</div>
+                    <div class="row m-3 mx-auto d-flex justify-content-evenly w-100">
+                        <% if(cars.length> 0){ %> <% cars.map((car)=>{ %>
+
+                                <div class="col-12 col-md-6 col-lg-4 card border-0 mt-4" id="card-car">
+                                    <div class="card-body h-100">
+                                        <img class="img-fluid" id="img-car" src="<% if(car.foto == '') {%>  
+                    									
+                    									<% } else {%> 
+                    									<%- car.foto %>	
+                    									<% } %>" alt="<%- car.name %>" />
+                                        <h2 class="card-title fw-bold pt-2" id="car-name">
+                                            <%- car.name %>
+                                        </h2>
+                                        <h4 class="card-sub-title fw-bold" id="car-rent">
+                                            <%- 'Rp. ' + car.sewa + '/ hari' %>
+                                        </h4>
+                                        <!-- <i><img src="" alt="clock-icon" /></i> -->
+                                        <%- car.updatedAt %>
+                                    </div>
+                                    <div class="card-footer border-0">
+                                        <div class="d-flex gap-2">
+                                            <!-- Button Modal -->
+                                            <button type="button"
+                                                class="nav-link d-block py-2 nav-link rounded-2 danger-outline fw-bold text-center w-100"
+                                                data-bs-toggle="modal" data-bs-target="#deleteCar<%- car.id %>">
+                                                <i><img src="/assets/fi_trash-2.png" alt="user-icon" /></i>
+                                                Delete
+                                            </button>
+                                            <!-- Modal Content -->
+                                            <div class="modal fade" id="deleteCar<%- car.id %>" tabindex="-1"
+                                                aria-labelledby="deleteCarLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-body rounded bg-white text-center">
+                                                            <div class="row">
+                                                                <div class="col-12 d-flex justify-content-center align-items-center">
+                                                                    <img src="/assets/images/delete_car_icon.svg" alt="car_icon"
+                                                                        class="img-fluid" style="width: 153px; height: 121px" />
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <h5 class="fw-bold">Menghapus Data Mobil</h5>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <p>Setelah dihapus, data mobil tidak dapat dikembalikan. Yakin ingin
+                                                                        menghapus?</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-6 d-flex justify-content-end align-items-center">
+                                                                    <form action="cars/delete/<%- car.id %>" method="post" class="w-50"
+                                                                        title="<%- car.name %>">
+                                                                        <button type="submit"
+                                                                            class="d-block w-100 py-2 px-4 nav-link rounded primary-color text-white fw-bold text-center">
+                                                                            Ya
+                                                                        </button>
+                                                                    </form>
+                                                                </div>
+                                                                <div class="col-6 d-flex justify-content-start align-items-center">
+                                                                    <button
+                                                                        class="d-block w-50 py-2 px-4 nav-link rounded primary-outline primary-text fw-bold text-center"
+                                                                        data-bs-dismiss="modal">
+                                                                        Tidak
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- EDIT -->
+                                            <a href="/cars/edit/<%- car.id %>"
+                                                class="d-block w-100 py-2 nav-link rounded-2 success-color text-white fw-bold text-center">
+                                                <i><img src="/assets/fi_edit.png" alt="user-icon" /></i>
+                                                Edit</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% }) %>
+                                    <% } else{%>
+                                        <div class="alert alert-danger text-center fw-bold mt-2 w-100" role="alert"
+                                            style="width: 50vw !important">
+                                            Mobil Tidak Tersedia!
+                                        </div>
+                                        <% } %>
+                    </div>
+
+                    </div>
+                    <div class="button">
+                        <a href="#"></a>
+                    </div>
+                </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+
+    <script>
+        let sidebar = document.querySelector(".sidebar");
+        let sidebarBtn = document.querySelector(".sidebarBtn");
+        sidebarBtn.onclick = function () {
+            sidebar.classList.toggle("active");
+            if (sidebar.classList.contains("active")) {
+                sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+            } else sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+        };
+    </script>
 </body>
 
 </html>

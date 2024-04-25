@@ -12,6 +12,7 @@
     <form action="/cars/admin/edit/<%= car.id %>" method="POST">
         <label for="">Nama</label>
         <input type="text" name="name" placeholder="masukkan nama" value="<%= car.name %>" />
+        <input type="text" name="sewa" placeholder="harga sewa" value="<% car.sewa %>">
         <br />
         <button>Edit Data</button>
     </form>
